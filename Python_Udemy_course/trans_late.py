@@ -3,8 +3,8 @@
 
 from translate import Translator
 
-print("Enter a text and I will translate it to arabic")
-inserted_txt = input("Enter a word or sentence: ")
+print("Enter a text and I will translate it to Arabic")
+inserted_txt = input("Input the text you want to translate: ")
 translator = Translator(from_lang="english", to_lang="arabic")
 translation = translator.translate(inserted_txt)
-print(translation)
+print(translation + "\n")
