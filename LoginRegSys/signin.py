@@ -3,6 +3,10 @@
 import tkinter as tk
 from PIL import ImageTk
 
+
+def sign_up():
+    root.destroy()
+    import signup
 def hide():
     open_eye.config(file='img/closeye.png')
     passwordEntry.config(show='*')
@@ -24,10 +28,13 @@ def passwd_entry(event):
 root = tk.Tk()
 bgImage = ImageTk.PhotoImage(file="img/bgg.jpg")
 root.geometry('990x660+50+50')
+root.resizable(False, False)  # Disable window resizing
+
 # root.resizable(width=0, height=0)
 root.title("Login Page")
 bgLabel = tk.Label(root, image=bgImage)
 bgLabel.pack(fill="both", expand=True)
+
 
 heading = tk.Label(root, text='User Login', font=("Arial", 30, 'bold'), bg='#CCCCCC', fg='firebrick1')
 heading.place(x=578, y=120)
@@ -86,7 +93,7 @@ signupLabel.place(x=578, y=500)
 new_acc_Button = tk.Button(root, text="Create new one", activebackground='white',
                             cursor='hand2', font=("Open Sans", 9, 'bold'),
                             fg='blue', bg='white', activeforeground='blue',
-                            bd=0)
+                            bd=0, command=sign_up)
 new_acc_Button.place(x=782, y=497)
 
 root.mainloop()
