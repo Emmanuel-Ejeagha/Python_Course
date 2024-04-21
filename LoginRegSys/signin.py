@@ -2,6 +2,47 @@
 
 import tkinter as tk
 from PIL import ImageTk
+from tkinter import messagebox
+import pymysql
+
+def forgot_passwd():
+    window = tk.Toplevel()
+    window.title('Change Password')
+    window.geometry('990x660+50+50')
+    window.resizable(False, False)  # Disable window resizing
+
+    bgPic = ImageTk.PhotoImage(file='img/bgg.jpg')
+    bgLabel = tk.Label(window, image=bgPic)
+    bgLabel.grid()
+
+
+    window.mainloop()
+def login_user():
+    if usernameEntry.get() == '' or passwordEntry.get() == '':
+        messagebox.showerror('Error', 'All Fields Are Required')
+
+    else:
+        try:
+                con = pymysql.connect(
+                    host='localhost',
+                    user='backend-developer',
+                    password='StrongPassword123!',
+                    port=3306
+                )
+                my_cursor = con.cursor()
+        except:
+            messagebox.showerror('Error', 'Connection is not established try again')
+            return
+        query = 'USE userdata'
+        my_cursor.execute(query)
+        query = 'SELECT * FROM data WHERE username=%s and password=%s'
+        my_cursor.execute(query, args=(passwordEntry.get(), usernameEntry.get()))
+        row = my_cursor.fetchone()
+        if row == None:
+            messagebox.showerror('Error', 'Invalid username or password')
+        else:
+            messagebox.showinfo('Success', 'Login is successful')
+
 
 
 def sign_up():
@@ -62,13 +103,13 @@ eyeButton.place(x=886, y=262)
 
 forgotButton = tk.Button(root, text="Forgot Password?", bd=0, bg='white', activebackground='white',
                          cursor='hand2', font=("Arial", 9, 'bold'),
-                         fg='firebrick1', activeforeground='firebrick1')
+                         fg='firebrick1', activeforeground='firebrick1', command=forgot_passwd)
 forgotButton.place(x=786, y=295)
 
 loginButton = tk.Button(root, text="Login", activebackground='firebrick1',
                         cursor='hand2', font=("Open Sans", 16, 'bold'),
                         fg='white', bg='firebrick1', activeforeground='white',
-                        bd=0, width=21)
+                        bd=0, width=21, command=login_user)
 loginButton.place(x=578, y=350)
 
 orLabel = tk.Label(root, text='---------------- OR ----------------', font=("Open Sans", 16, 'bold'), bg='white',
