@@ -3,18 +3,25 @@ import tkinter as tk
 from tkinter import messagebox
 from PIL import ImageTk
 import pymysql
-#
 
+# Clears the entry
 def clear():
+    """Clears the data from the Entry"""
     emailEntry.delete(0, tk.END)
     userEntry.delete(0, tk.END)
     passwordEntry.delete(0, tk.END)
-    conPasswdEntry.delete(0, tk.END)
+    confirmPasswdEntry.delete(0, tk.END)
 
+
+# Connects to Mysql database 
 def connect_database():
-    if emailEntry.get() == '' or userEntry.get()=='' or passwordEntry.get()=='' or conPasswdEntry.get()=='':
+    """
+    Connects to MySQL local server
+    Confirmed whether the user has filled the form completely
+    """
+    if emailEntry.get() == '' or userEntry.get()=='' or passwordEntry.get()=='' or confirmPasswdEntry.get()=='':
         messagebox.showerror('Error', 'All Fields Are Required!')
-    elif passwordEntry.get() != conPasswdEntry.get():
+    elif passwordEntry.get() != confirmPasswdEntry.get():
         messagebox.showerror('Error', 'Password Mismatch!')
     elif check.get()==0:
         messagebox.showerror('Error', 'Please Accept Terms & Conditions')
@@ -49,19 +56,28 @@ def connect_database():
         query = 'SELECT * FROM data WHERE username=%s'
         mycursor.execute(query, (userEntry.get()))
 
-        row = my
-        query='INSERT INTO data(email, username, password) values(%s, %s, %s)'
-        mycursor.execute(query, (emailEntry.get(), userEntry.get(), passwordEntry.get()))
-        con.commit()
-        con.close()
-        messagebox.showinfo('Success', 'Registration is successful')
-        clear()
-        signup.destroy()
-        import signin
+        row = mycursor.fetchone()
+        if row != None:
+            messagebox.showerror('Error', 'Username Already Exists')
 
+        else:
+            query = 'INSERT INTO data(email, username, password) values(%s, %s, %s)'
+            mycursor.execute(query, (emailEntry.get(), userEntry.get(), passwordEntry.get()))
+            con.commit()
+            con.close()
+            messagebox.showinfo('Success', 'Registration is successful')
+            clear()
+            signup.destroy()
+            import signin
+
+
+# Login Page
 def login_page():
+    """Takes the user to the login page"""
     signup.destroy()
     import signin
+    
+    
 # Create the Tkinter window for sign up
 signup = tk.Tk()
 signup.title("Sign up")
@@ -106,12 +122,12 @@ passwordEntry = tk.Entry(frame, width=30, font=('Microsoft Yahei UI Light', 10, 
 passwordEntry.grid(row=6, column=0, sticky='w', padx=25)
 
 # Confirm Password Label and Entry
-conPasswdLabel = tk.Label(frame, text='Confirm Password', font=('Microsoft Yahei UI Light', 10, 'bold'), bg='white',
+confirmPasswdLabel = tk.Label(frame, text='Confirm Password', font=('Microsoft Yahei UI Light', 10, 'bold'), bg='white',
                           fg='firebrick1')
-conPasswdLabel.grid(row=7, column=0, sticky='w', padx=25, pady=(10, 0))
-conPasswdEntry = tk.Entry(frame, width=30, font=('Microsoft Yahei UI Light', 10, 'bold'),
+confirmPasswdLabel.grid(row=7, column=0, sticky='w', padx=25, pady=(10, 0))
+confirmPasswdEntry = tk.Entry(frame, width=30, font=('Microsoft Yahei UI Light', 10, 'bold'),
                           fg='white', bg='firebrick1')
-conPasswdEntry.grid(row=8, column=0, sticky='w', padx=25)
+confirmPasswdEntry.grid(row=8, column=0, sticky='w', padx=25)
 
 # Terms and Conditions Checkbutton
 check = tk.IntVar()
@@ -137,4 +153,6 @@ loginButton = tk.Button(frame, text='Log in', font=('Open Sans', 9, 'bold underl
                         cursor='hand2', activebackground='white', activeforeground='blue', command=login_page)
 loginButton.place(x=220, y=390)
 
+
+# The main loop
 signup.mainloop()
