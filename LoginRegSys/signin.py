@@ -5,31 +5,99 @@ from PIL import ImageTk
 from tkinter import messagebox
 import pymysql
 
+
+# The Forgot password window that assists user to recover forgotten password
 def forgot_passwd():
+    """The forgot password window"""
+    def change_password():
+        """Changes the password and connects to the database"""
+        if userEntry.get() == '' or new_passwordEntry.get() == '' or con_passwordEntry.get() == '':
+            messagebox.showerror('Error', 'All Fields Are Required', parent=window)
+        elif new_passwordEntry != con_passwordEntry:
+            messagebox.showerror('Error', 'Password and Confirm Password are not matching', parent=window)
+        else:
+            con = pymysql.connect(
+                host='localhost',
+                user='backend-developer',
+                password='StrongPassword123!',
+                port=3306,
+                database='userdata'
+            )
+            mycursor = con.cursor()
+            query = 'SELECT * FROM data WHERE userdata=%s'
+            mycursor.execute(query, (userEntry.get()))
+            row = mycursor.fetchone()
+            if row == None:
+                messagebox.showerror('Error', 'Incorrect Username', parent=window)
+            else:
+                query = 'UPDATE data SET password=%s WHERE username=%s'
+                mycursor.execute(query, (new_passwordEntry.get(), userEntry.get()))
+                con.commit()
+                con.close()
+                messagebox.showinfo('Success', 'Passord is reset, please login with new password', parent=window)
+                window.destroy()
+
     window = tk.Toplevel()
     window.title('Change Password')
     window.geometry('990x660+50+50')
     window.resizable(False, False)  # Disable window resizing
 
-    bgPic = ImageTk.PhotoImage(file='img/bgg.jpg')
-    bgLabel = tk.Label(window, image=bgPic)
+    bgpic = ImageTk.PhotoImage(file='img/bgg.jpg')
+    bgLabel = tk.Label(window, image=bgpic)
     bgLabel.grid()
 
+    frame = tk.Frame(window, bg='white')
+    frame.place(x=570, y=100)
+
+    heading_label = tk.Label(frame, text='RESET PASSWORD', font=('Arial', 20, 'bold'), bg='white', fg='sea green')
+    heading_label.grid(row=0, column=0, padx=10, pady=10)
+
+    # Email Label and Entry
+    userLabel = tk.Label(frame, text='Username', font=('Microsoft Yahei UI Light', 10, 'bold'), bg='white',
+                          fg='sea green')
+    userLabel.grid(row=1, column=0, sticky='w', padx=25, pady=(30, 0))
+    userEntry = tk.Entry(frame, width=30, font=('Microsoft Yahei UI Light', 10, 'bold'),
+                          fg='tomato', bg='white')
+    userEntry.grid(row=2, column=0, sticky='w', padx=25)
+
+    # Email Label and Entry
+    new_passwordLabel = tk.Label(frame, text='New Password', font=('Microsoft Yahei UI Light', 10, 'bold'), bg='white',
+                          fg='sea green')
+    new_passwordLabel.grid(row=3, column=0, sticky='w', padx=25, pady=(30, 0))
+    new_passwordEntry = tk.Entry(frame, width=30, font=('Microsoft Yahei UI Light', 10, 'bold'),
+                          fg='tomato', bg='white')
+    new_passwordEntry.grid(row=4, column=0, sticky='w', padx=25)
+
+    con_passwordLabel = tk.Label(frame, text='Confirm Password', font=('Microsoft Yahei UI Light', 10, 'bold'), bg='white',
+                          fg='sea green')
+    con_passwordLabel.grid(row=5, column=0, sticky='w', padx=25, pady=(30, 0))
+    con_passwordEntry = tk.Entry(frame, width=30, font=('Microsoft Yahei UI Light', 10, 'bold'),
+                          fg='tomato',  bg='white')
+    con_passwordEntry.grid(row=6, column=0, sticky='w', padx=25)
+
+    submit_button = tk.Button(frame, text='SUBMIT', bd=2, bg='tomato', fg='white', font=('Open Sans', 16, 'bold'),
+                              activeforeground='white', activebackground='sea green', width=17, cursor='hand2', command=change_password)
+    submit_button.grid(row=7, column=0, pady=(45, 40))
 
     window.mainloop()
+
+# Stores user's data to the database
 def login_user():
+    """
+    Confirms if a user meets the requirements to login to the page
+    """
     if usernameEntry.get() == '' or passwordEntry.get() == '':
         messagebox.showerror('Error', 'All Fields Are Required')
 
     else:
         try:
-                con = pymysql.connect(
-                    host='localhost',
-                    user='backend-developer',
-                    password='StrongPassword123!',
-                    port=3306
-                )
-                my_cursor = con.cursor()
+            con = pymysql.connect(
+                host='localhost',
+                user='backend-developer',
+                password='StrongPassword123!',
+                port=3306
+            )
+            my_cursor = con.cursor()
         except:
             messagebox.showerror('Error', 'Connection is not established try again')
             return
@@ -46,23 +114,32 @@ def login_user():
 
 
 def sign_up():
+    """Closes the signup page and opens the signup page"""
     root.destroy()
     import signup
 def hide():
+    """Controls the open eye logo on the password field"""
     open_eye.config(file='img/closeye.png')
     passwordEntry.config(show='*')
     eyeButton.config(command=show)
 
 def show():
+    """Controls the open eye logo on the password field"""
     open_eye.config(file='img/openeye.png')
     passwordEntry.config(show='')
     eyeButton.config(command=hide)
 
 def user_entry(event):
+    """deletes the text on the username field so that
+    the user can enter text on the field
+    """
     if usernameEntry.get() == 'Username':
         usernameEntry.delete(0, tk.END)
 
 def passwd_entry(event):
+    """deletes the text on the password field so that
+    the user can enter text on the field
+    """
     if passwordEntry.get() == 'Password':
         passwordEntry.delete(0, tk.END)
 
