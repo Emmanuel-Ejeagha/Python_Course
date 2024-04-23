@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 import tkinter as tk
 
 # Global variable to store the calculation expression
@@ -54,6 +55,7 @@ for label, row, column in button_labels:
     button.grid(row=row, column=column, sticky="nsew")
     buttons.append(button)
 
+window.title("Simple Calculator")
 # Create equal and clear buttons
 buttonEqual = tk.Button(window, text="=", command=evaluate_cal, font=("Arial", 14))
 buttonEqual.grid(row=6, column=3, columnspan=2, sticky="nsew")
