@@ -7,8 +7,8 @@ from tkinter import StringVar
 
 # Create the main Tkinter window
 root = tk.Tk()
-root.geometry('800x600')
-root.title("Python Quiz")
+root.geometry('800x480')
+root.title("PYTHON QUIZ")
 
 # Define the list of questions, options, and answers
 questions = [
@@ -86,8 +86,8 @@ question_label = tk.Label(frame, height=7, width=50, bg='gray89', fg='gray12', f
 question_label.grid(row=0, column=0, sticky='w')
 
 # Create a button for navigating to the next question or restarting the quiz
-button_next = tk.Button(frame, text='Next', bg='orange', font=('Verdana', 20), command=lambda: displayNextQuestion(), fg='gray1')
-button_next.grid(row=9, column=0, sticky='s')
+button_next = tk.Button(frame, text='Next', bg='orange', cursor='hand2', font=('Verdana', 20), command=lambda: displayNextQuestion(), fg='gray1')
+button_next.grid(row=6, column=0, sticky='s')
 
 # Create StringVar variables for the radio button options
 v1 = StringVar(frame)
@@ -112,10 +112,11 @@ correct = 0
 
 # Define a function to disable the radio buttons
 def disableButtons(normal):
-    option1['state'] = normal
-    option2['state'] = normal
-    option3['state'] = normal
-    option4['state'] = normal
+    # option1['state'] = normal
+    # option2['state'] = normal
+    # option3['state'] = normal
+    # option4['state'] = normal
+    pass
 
 
 # Define a function to check the selected answer
