@@ -5,8 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{% block title %}Home{% endblock %}</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <style>
+      body {
+          background-image: url('static/img/lib.jpg'); /* Replace 'path_to_your_image.jpg' with the actual path to your background image */
+          background-size: cover;
+          background-position: center;
+          background-repeat: no-repeat;
+          height: 100vh;
+      }
+     /* }
+      .container {
+          background-color: rgba(255, 255, 255, 0.8); /* Adjust the opacity as needed 
+          border-radius: 0px;
+      } */
+  </style>
   </head>
   <body>
+    
     <nav class="navbar navbar-expand-lg bg-primary text-light">
      <!-- <button
         class="navebar-toggler"
@@ -32,7 +47,7 @@
         </li>
       
         <li class="nav-item">
-          <a class="nav-link text-light" href="/sign-up">Sign Up</a>
+          <a class="nav-link text-light" href="/sign_up" style="margin-right: 10px;">Sign Up</a>
         </li>
         <li class="nav-item dropdown">
         <li class="nav-item">
@@ -126,10 +141,45 @@
 {% endwith %}
 <div class="container">
 {% block  content %}
+
 {% endblock %}
 </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+<!--
+<footer class="text-dark-subtle p">
+  <div class="container">
+      <div class="row">
+          <div class="col-md-4">
+              <h5>About Us</h5>
+          </div>
+          <div class="col-md-4">
+              <h5>Quick Links</h5>
+              <ul class="list-unstyled">
+                  <li><a href="#">Home</a></li>
+                  <li><a href="#">About</a></li>
+                  <li><a href="#">Services</a></li>
+                  <li><a href="#">Contact</a></li>
+              </ul>
+          </div>
+          <div class="col-md-4">
+              <h5>Contact Us</h5>
+              <p>123 Street Name<br>City, Country<br>Email: info@example.com<br>Phone: +123-456-7890</p>
+          </div>
+      </div>
+      <hr>
+      <div class="text-center">
+          <p>&copy; 2024 Your Website Name. All Rights Reserved.</p>
+          <p>Designed and Developed by <a href="#">Your Name</a></p>
+          <ul class="list-inline">
+              <li class="list-inline-item"><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+              <li class="list-inline-item"><a href="#"><i class="fab fa-twitter"></i></a></li>
+              <li class="list-inline-item"><a href="#"><i class="fab fa-instagram"></i></a></li>
+              <li class="list-inline-item"><a href="#"><i class="fab fa-linkedin"></i></a></li>
+              <li class="list-inline-item"><a href="#"><i class="fab fa-youtube"></i></a></li>
+          </ul>
+      </div>
+  </div>
+</footer> -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 {% block javascript %}
     <script type="text/javascript">
       function deleteNote(noteId) {
