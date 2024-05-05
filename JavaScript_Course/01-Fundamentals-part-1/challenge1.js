@@ -69,22 +69,3 @@ console.log(`The bill was ${bill}, the tip was ${tip},
 and the total value ${bill + tip}`)
 */
 
-// #3 challenge
-const calAverage = (x, y, z) => (x + y + z) / 3;
-console.log(calAverage(55, 56, 57))
-
-const scoreDolphins = calAverage(44, 23, 71);
-const scoreKoalas = calAverage(65, 54, 49)
-
-function checkWinner(avgDolphins, avgKoalas) {
-    if (avgDolphins >= avgKoalas * 2) {
-        console.log(`Dolphines win 🏆 (${avgDolphins} vs. ${avgKoalas})`)
-    } else if (avgKoalas >= avgDolphins * 2) {
-        console.log(`Koalas win 🏆 (${avgKoalas} vs. ${avgDolphins})`)
-    } else {
-        console.log('No team wins...')
-    }
-}
-checkWinner(scoreDolphins, scoreKoalas);
-
-checkWinner(40, 111)
