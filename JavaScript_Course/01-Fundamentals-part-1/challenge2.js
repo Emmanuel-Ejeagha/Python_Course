@@ -16,10 +16,12 @@ console.log(`Your bill is ${bills}, your tips are ${tips} the total is ${totals}
 
 // test
 function annualGrandRent(annualRent, numOfMonth) {
-    annualRent = Number(prompt('Enter your annual rent and I will tell you its cost per month'))
+    annualRent = Number(prompt('Enter your annual rent and I will tell \
+    you its cost per month'))
     numOfMonth = Number(prompt('Enter the number of months you want to pay'))
     const total = annualRent / numOfMonth
-    console.log(`Your annual rent is ${annualRent} for ${numOfMonth} months. Your rent is ${total} payment per month.`)
+    console.log(`Your annual rent is ${annualRent} for ${numOfMonth} months.\
+     Your rent is $${total} per month.`)
 }
 
 rent = annualGrandRent()
@@ -31,7 +33,7 @@ const student1 = {
     lastName: 'Christian',
     age: 2024 - 1990,
     class: '200 Level',
-    dept: 'Somputer Science',
+    dept: 'Computer Science',
     faculty: 'School of Science',
     friends: ['Praise', 'Cyril', 'Mercy']
 }
@@ -46,5 +48,6 @@ if (student1[message]){
     middleName, age, class, dept, faculty, friends')
 }
 
-console.log(`${student1.firstName} has ${student1.friends.length}, and \
+console.log(`${student1.firstName} has ${student1.friends.length} friends, and \
 his best friend is ${student1.friends[1]}`)
+console.log(student1)
