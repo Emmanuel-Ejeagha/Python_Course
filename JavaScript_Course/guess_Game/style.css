@@ -70,13 +70,13 @@ h1 {
   font-size: 1.4rem;
   position: absolute;
   top: 2rem;
-  right: 2rem;
+  left: 2rem;
 }
 
 .again {
   position: absolute;
   top: 2rem;
-  left: 2rem;
+  right: 2rem;
 }
 
 .guess {
