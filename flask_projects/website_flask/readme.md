@@ -9,17 +9,5 @@ This is a simple note-taking web application built using Flask, a lightweight Py
 - Delete notes: Users can delete their own notes.
 - Password reset: Users can request a password reset if they forget their password.
 
-## Installation
 
-1. Clone this repository to your local machine:
-
-```bash
-git clone https://github.com/yourusername/flask-note-taking-app.git
-
-cd flask-note-taking-app
-
-
-``` 
-note
-Make sure to replace placeholders like `yourusername` and `flask-note-taking-app` with your actual GitHub username and repository name. Also, ensure that you have a `LICENSE` file with the appropriate license text in your project directory.
 
