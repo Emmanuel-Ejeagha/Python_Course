@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TODO LISt</title>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            /* background-color: #f4f4f9; */
+            background-image: linear-gradient(to top left,#5d5dff, #fff);
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 600px;
+        }
+        h1 {
+            text-align: center;
+            color: #5d5dff;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+        li:last-child {
+            border-bottom: none;
+        }
+        li span {
+            flex: 1;
+            margin-left: 10px;
+        }
+        li a {
+            margin-left: 10px;
+        }
+        li a:hover {
+            text-decoration: underline;
+        }
+        form {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+        }
+        form input[type="text"] {
+            padding:10px;
+            width: 75%;
+            height: 50px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        form button {
+            padding: 10px 20px;
+            background-color: #5d5dff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        form button:hover {
+            background-color: #4343d9;
+        }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+    <h1>Todos</h1>
+    <ul>
+      {% for todo in todos %}
+      <li>
+        <input type="checkbox" name="done" {% if todo['done'] %} checked {%endif%} disabled
+         onchange="this.form.submit()" /> <span {% if todo['done'] %}
+        style="text-decoration: line-through" {%endif%} >  {{ todo['task'] }} </span>
+        <a href="{{ url_for('check', index=loop.index0) }}">Check</a>
+        <a href="{{ url_for('edit', index=loop.index0) }}">Edit</a>
+        <a href="{{ url_for('delete', index=loop.index0) }}">Delete</a>
+      </li>
+      {% endfor %}
+    </ul>
+    <form action="{{ url_for('add') }}" method="post">
+      <input type="text"  name="todo" placeholder="Enter your todo" />
+      <button type="submit">Add Todo</button>
+    </form>
+    </div>
+  </body>
+</html>
