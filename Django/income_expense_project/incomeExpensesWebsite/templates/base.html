@@ -1,4 +1,5 @@
 {% load static %}
+
 <html lang="en" data-bs-theme="auto">
   <head>
     <script src="/docs/5.3/assets/js/color-modes.js"></script>
@@ -7,20 +8,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Monija {% block title %} {% endblock %}</title>
 
-    <!-- External CSS -->
+    <link
+      rel="canonical"
+      href="https://getbootstrap.com/docs/5.3/examples/dashboard/"
+    />
+
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/@docsearch/css@3"
     />
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.min.css"
-      rel="stylesheet"
-    />
 
-    <!-- Local CSS -->
     <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" />
     <link href="{% static 'css/main.css' %}" rel="stylesheet" />
-    <link href="{% static 'css/dashboard.css' %}" rel="stylesheet" />
 
     <!-- Favicons -->
     <link
@@ -48,58 +47,14 @@
     />
     <link rel="icon" href="/docs/5.3/assets/img/favicons/favicon.ico" />
     <meta name="theme-color" content="#712cf9" />
-    <meta name="theme-color" content="#712cf9" />
 
-    <!-- <style>
-      .bi {
-        display: inline-block;
-        width: 1rem;
-        height: 1rem;
-      }
-
-      /*
-   * Sidebar
-   */
-
-      @media (min-width: 768px) {
-        .sidebar .offcanvas-lg {
-          position: -webkit-sticky;
-          position: sticky;
-          top: 48px;
-        }
-        .navbar-search {
-          display: block;
-        }
-      }
-
-      .sidebar .nav-link {
-        font-size: 0.875rem;
-        font-weight: 500;
-      }
-
-      .sidebar .nav-link.active {
-        color: #2470dc;
-      }
-
-      .sidebar-heading {
-        font-size: 0.75rem;
-      }
-
-      /*
-   * Navbar
-   */
-
-      .navbar-brand {
-        padding-top: 0.75rem;
-        padding-bottom: 0.75rem;
-        background-color: rgba(0, 0, 0, 0.25);
-        box-shadow: inset -1px 0 0 rgba(0, 0, 0, 0.25);
-      }
-
-      .navbar .form-control {
-        padding: 0.75rem 1rem;
-      }
-    </style> -->
+    <!-- Custom styles for this template -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.min.css"
+      rel="stylesheet"
+    />
+    <!-- Custom styles for this template -->
+    <link href="{% static 'css/dashboard.css' %}" rel="stylesheet" />
   </head>
   <body>
     <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
@@ -293,7 +248,7 @@
       <a
         class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6 text-white"
         href="#"
-        >Monija</a
+        >MoniWealth</a
       >
 
       <ul class="navbar-nav flex-row d-md-none">
@@ -343,11 +298,7 @@
         </main>
       </div>
     </div>
-    <script
-      src="/docs/5.3/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-      crossorigin="anonymous"
-    ></script>
+    <script src="/docs/5.3/dist/js/bootstrap.bundle.min.js"></script>
 
     <script
       src="https://cdn.jsdelivr.net/npm/chart.js@4.3.2/dist/chart.umd.js"

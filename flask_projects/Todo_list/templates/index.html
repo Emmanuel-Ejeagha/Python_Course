@@ -85,7 +85,7 @@
     <ul>
       {% for todo in todos %}
       <li>
-        <input type="checkbox" name="done" {% if todo['done'] %} checked {%endif%} disabled
+        <input type="checkbox" name="done" {% if todo['done'] %} checked {%endif%} 
          onchange="this.form.submit()" /> <span {% if todo['done'] %}
         style="text-decoration: line-through" {%endif%} >  {{ todo['task'] }} </span>
         <a href="{{ url_for('check', index=loop.index0) }}">Check</a>
