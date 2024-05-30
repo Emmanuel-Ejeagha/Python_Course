@@ -1,11 +1,13 @@
 {% load static %}
+
 <html lang="en" data-bs-theme="auto">
   <head>
-    <!-- <script src="{% static 'js/main.js' %}"></script> -->
+    <!-- <script src="{% static 'js/color-modes.js' %}"></script> -->
 
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
+    <meta name="generator" content="Hugo 0.122.0" />
     <title>Moni-Wealth {% block title %} {% endblock %}</title>
 
     <link
@@ -46,8 +48,7 @@
     />
     <link rel="icon" href="/docs/5.3/assets/img/favicons/favicon.ico" />
     <meta name="theme-color" content="#712cf9" />
-
-    <link href="{% static 'css/1main.css' %}" />
+    <link href="{% static 'css/main.css'  %}" rel="stylesheet" />
 
     <!-- Custom styles for this template -->
     <link
@@ -295,7 +296,7 @@
       <div class="row">
         {% include 'partials/_sidebar.html' %}
         <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-          {% block content%} {% endblock %}
+          {% block content %} {% endblock %}
         </main>
       </div>
     </div>
