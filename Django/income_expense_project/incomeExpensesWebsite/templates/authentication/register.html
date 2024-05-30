@@ -4,11 +4,12 @@
   <div class="col-md-6 col-lg-4">
     <div class="card mt-5">
       <div class="card-title text-center mt-3">
-        <h4>Register for a free account</h4>
+        <h4>Register Free Account</h4>
       </div>
+
       <div class="card-body">
-        <form action="" method="post">
-          {% csrf_token %}
+        <form action="{% url 'register' %}" method="post">
+          {% include 'partials/_messages.html' %} {% csrf_token %}
           <div class="form-group">
             <input
               type="text"
@@ -16,6 +17,7 @@
               placeholder="Username"
               id="usernameField"
               class="form-control form-control-sm mb-3"
+              value="{{fieldValues.username}}"
             />
           </div>
           <div class="invalid-feedback" style="display: none"></div>
@@ -27,6 +29,7 @@
               placeholder="Email"
               id="emailField"
               class="form-control form-control-sm mb-3"
+              value="{{fieldValues.email}}"
             />
           </div>
           <div
@@ -59,7 +62,8 @@
             <input
               type="submit"
               value="Register"
-              class="btn btn-primary btn-block"
+              class="btn btn-primary form-control submit-btn"
+              style="margin-top: 20px"
             />
           </div>
         </form>

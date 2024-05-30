@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 import json
 from validate_email import validate_email
 from django.contrib import messages
+from django.core.mail import EmailMessage
 
 
 # Create your views here.
@@ -50,4 +51,33 @@ class RegistrationView(View):
        username = request.POST['username']
        email = request.POST['email']
        password = request.POST['password']
+       context = {
+          'fieldValues': request.POST 
+       }
+       
+       if not User.objects.filter(username=username).exists():
+           if not User.objects.filter(email=email).exists():
+               if len(password) < 6:
+                   messages.error(request, 'Password too short')
+                   return render(request, "authentication/register.html", context)
+               
+               user = User.objects.create_user(username=username, email=email)
+               user.set_password(password)
+               user.set_password = False
+               user.save()
+            #    email_subject = 'Activate your account'
+            #    email_body = 'Test body '
+            #    email = EmailMessage(
+            #        email_subject,
+            #        email_body,
+            #        'noreply@monywealth.com',
+            #        [email],
+            #    )
+               
+            #    email.send(fail_silently=False)
+            #    messages.success(request, 'Account successfully created')
+               return render(request, "authentication/register.html")
+       
+
+           
        return render(request, "authentication/register.html")
