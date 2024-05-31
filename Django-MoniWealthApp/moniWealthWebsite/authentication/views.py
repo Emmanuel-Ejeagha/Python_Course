@@ -46,8 +46,6 @@ class RegistrationView(View):
     
     def post(self, request):
        # GET USER DATA
-       # VALIDE
-       # CREATE A USER ACCOUNT
        username = request.POST['username']
        email = request.POST['email']
        password = request.POST['password']
@@ -55,6 +53,7 @@ class RegistrationView(View):
           'fieldValues': request.POST 
        }
        
+    #    Validate Username
        if not User.objects.filter(username=username).exists():
            if not User.objects.filter(email=email).exists():
                if len(password) < 6:
@@ -65,17 +64,17 @@ class RegistrationView(View):
                user.set_password(password)
                user.set_password = False
                user.save()
-            #    email_subject = 'Activate your account'
-            #    email_body = 'Test body '
-            #    email = EmailMessage(
-            #        email_subject,
-            #        email_body,
-            #        'noreply@monywealth.com',
-            #        [email],
-            #    )
+               email_subject = 'Activate your account'
+               email_body = 'Test body '
+               email = EmailMessage(
+                   email_subject,
+                   email_body,
+                   'noreply@monywealth.com',
+                   [email],
+               )
                
-            #    email.send(fail_silently=False)
-            #    messages.success(request, 'Account successfully created')
+               email.send(fail_silently=False)
+               messages.success(request, 'Account created successfully')
                return render(request, "authentication/register.html")
        
 
