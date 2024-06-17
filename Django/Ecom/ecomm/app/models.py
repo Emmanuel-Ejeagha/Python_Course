@@ -6,7 +6,7 @@ CATEGORY_CHOICES = (
     ('PH', 'Phone'),
     ('AP', 'Airpod'),
     ('HS', 'Headset'),
-    ('LP', 'Laptop'),
+    ('LT', 'Laptop'),
     ('CG', 'Charger'),
     ('PB', 'Powerbank') 
 )
