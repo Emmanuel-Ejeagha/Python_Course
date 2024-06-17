@@ -1,0 +1,70 @@
+{% extends 'base_auth.html' %} {% load static %} {% block content %}
+
+<div class="row justify-content-center">
+  <div class="col-md-6 col-lg-4">
+    <div class="card mt-5 shadow-sm border-0">
+      <div class="card-header text-center bg-primary text-white">
+        <h4 class="my-2">Create Your Account</h4>
+      </div>
+      <div class="card-body p-4">
+        <form action="{% url 'register' %}" method="post">
+          {% include 'partials/_messages.html' %} {% csrf_token %}
+          <div class="mb-3">
+            <label for="usernameField" class="form-label">Username</label>
+            <input
+              type="text"
+              name="username"
+              id="usernameField"
+              class="form-control"
+              placeholder="Enter your username"
+              value="{{ fieldValues.username }}"
+            />
+            <div class="invalid-feedback" style="display: none"></div>
+            <p class="text-success usernameSuccessOutput mt-1"></p>
+          </div>
+          <div class="mb-3">
+            <label for="emailField" class="form-label">Email</label>
+            <input
+              type="email"
+              name="email"
+              id="emailField"
+              class="form-control"
+              placeholder="Enter your email"
+              value="{{ fieldValues.email }}"
+            />
+            <div
+              class="emailFeedbackArea invalid-feedback"
+              style="display: none"
+            ></div>
+            <p class="text-success emailSuccessOutput mt-1"></p>
+          </div>
+          <div class="mb-3 position-relative">
+            <label for="passwordField" class="form-label">Password</label>
+            <input
+              type="password"
+              name="password"
+              id="passwordField"
+              class="form-control"
+              placeholder="Enter your password"
+            />
+            <small style="cursor: pointer"
+              ><span
+                class="position-absolute end-0 top-50 translate-middle-x me-1"
+                id="togglePassword"
+                >SHOW</span
+              ></small
+            >
+          </div>
+          <div class="d-grid mt-4">
+            <button type="submit" class="btn btn-primary submit-btn">
+              Register
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="{% static 'js/register1.js' %}"></script>
+
+{% endblock %}
