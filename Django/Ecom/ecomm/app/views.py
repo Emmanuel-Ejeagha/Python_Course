@@ -1,10 +1,9 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render
 from django.views import View
 from . models import Product
 from django.db.models import Count
-from . forms import CustomerRegistrationForm
+from . forms import CustomerRegistrationForm, CustomerProfileForm
 from django.contrib import messages
-# from django.contrib.auth import 
 
 # Create your views here.
 def home(request):
@@ -41,15 +40,22 @@ class ProductDetail(View):
 class CustomerRegistrationView(View):
     def get(self, request):
         form = CustomerRegistrationForm()
-        return render(request, 'app/sign-up.html', {'form': form})
+        return render(request, 'app/signup.html', locals())
     
     def post(self, request):
         form = CustomerRegistrationForm(request.POST)
         if form.is_valid():
             form.save()
-            username = form.username.cleaned_data
             messages.success(request, "Registration Successful")
-            return redirect('login')  # Replace 'login' with the appropriate URL name for the login page
         else:
             messages.warning(request, "Invalid Input Data")
-        return render(request, 'app/signup.html', {'form': form})
+        return render(request, 'app/signup.html', locals())
+
+
+class ProfileView(View):
+    def get(self, request):
+        form = CustomerProfileForm()
+        return render(request, 'app/profile.html', locals())
+    
+    def post(self, request):
+        return render(request, 'app/profile.html', locals())
