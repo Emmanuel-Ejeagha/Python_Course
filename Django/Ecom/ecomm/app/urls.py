@@ -14,3 +14,6 @@ urlpatterns = [
     # login authentication
     path('sign-up/', views.CustomerRegistrationView.as_view(), name='sign-up')
 ]+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+# merge conflict
+resolve
