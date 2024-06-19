@@ -1,0 +1,88 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block title %}About{% endblock title %}
+
+{% block banner-slider %}
+<div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src="{% static 'images/banner/1.png' %}" class="d-block w-100" alt="banner image" />
+      <div class="carousel-caption d-none d-md-block">
+        <h5>Welcome to Tech Mall</h5>
+        <p>Your ultimate tech destination</p>
+      </div>
+    </div>
+    <div class="carousel-item">
+      <img src="{% static 'images/banner/ban02.png' %}" class="d-block w-100" alt="banner image" />
+      <div class="carousel-caption d-none d-md-block">
+        <h5>Latest Gadgets</h5>
+        <p>Find the newest tech on the market</p>
+      </div>
+    </div>
+    <div class="carousel-item">
+      <img src="{% static 'images/banner/ban1.png' %}" class="d-block w-100" alt="banner image" />
+      <div class="carousel-caption d-none d-md-block">
+        <h5>Unbeatable Prices</h5>
+        <p>Get the best deals on all products</p>
+      </div>
+    </div>
+    <div class="carousel-item">
+      <img src="{% static 'images/banner/bann1.png' %}" class="d-block w-100" alt="banner image" />
+      <div class="carousel-caption d-none d-md-block">
+        <h5>Quality Assurance</h5>
+        <p>Products you can trust</p>
+      </div>
+    </div>
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
+{% endblock banner-slider %}
+
+{% block main-content %}
+<div class="container mt-5">
+    <h2 class="text-center mb-4">About Us</h2>
+    <p class="fs-5 text-center mb-5">
+        Welcome to Tech Mall, your number one source for the latest and greatest in technology products. We're dedicated to providing you with a wide range of high-quality electronics, from cutting-edge laptops and smartphones to essential accessories and gadgets. Our goal is to offer you the best products, with a focus on reliability, customer service, and uniqueness.
+    </p>
+
+    <h3 class="fs-4 text-center">Our Story</h3>
+    <p class="text-center mb-4">
+        Founded in 2024, Tech Mall has come a long way from its beginnings in Lagos, Nigeria. When we first started out, our passion for customer satisfaction drove us to start our own business. Our dedication to offering the best products and excellent customer service has helped us turn our passion into a booming online store.
+    </p>
+
+    <h3 class="fs-4 text-center">Mission</h3>
+    <p class="text-center mb-4">
+        At Tech Mall, we believe that technology should enhance your life, making it easier, more enjoyable, and more productive. Our mission is to provide you with the tools and devices you need to succeed in your personal and professional life. We are committed to offering only the highest quality products and continuously updating our inventory with the latest innovations.
+    </p>
+
+    <h3 class="fs-4 text-center">Our Values</h3>
+    <p class="text-center mb-4">
+        <strong>Quality:</strong> We carefully select our products to ensure they meet the highest standards of performance and durability.<br>
+        <strong>Customer Satisfaction:</strong> Your satisfaction is our top priority. We are always here to help with any questions or concerns.<br>
+        <strong>Innovation:</strong> We stay ahead of the curve by constantly updating our product offerings with the latest technology.<br>
+        <strong>Integrity:</strong> We believe in transparency and honesty in all our dealings with customers and partners.
+    </p>
+
+    <h3 class="fs-4 text-center">Why Shop With Us?</h3>
+    <p class="text-center mb-4">
+        <strong>Extensive Selection:</strong> We offer a wide range of products to meet all your technology needs.<br>
+        <strong>Competitive Prices:</strong> We strive to provide the best prices on the market without compromising on quality.<br>
+        <strong>Excellent Customer Service:</strong> Our team is dedicated to providing you with the best shopping experience possible.<br>
+        <strong>Secure Shopping:</strong> Your security and privacy are of utmost importance to us. We use advanced encryption technology to keep your information safe.
+    </p>
+
+    <h3 class="fs-4 text-center">Our Team</h3>
+    <p class="text-center">
+        Our dedicated team of technology enthusiasts works tirelessly to bring you the best products and services. We are always on the lookout for the latest trends and innovations in the tech world to ensure that we offer you the best of the best. Our customer service team is always ready to assist you with any questions or issues you may have, providing you with a smooth and enjoyable shopping experience.
+    </p>
+</div>
+<br><br>
+<br><br>
+{% endblock main-content %}

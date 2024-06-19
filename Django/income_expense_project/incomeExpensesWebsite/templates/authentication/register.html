@@ -1,0 +1,77 @@
+{% extends 'base_auth.html' %} {% load static %} {% block content %}
+
+<div class="row justify-content-center">
+  <div class="col-md-6 col-lg-4">
+    <div class="card mt-5">
+      <div class="card-title text-center mt-3">
+        <h4>Register Free Account</h4>
+      </div>
+
+      <div class="card-body">
+        <form action="{% url 'register' %}" method="post">
+          {% include 'partials/_messages.html' %} {% csrf_token %}
+          <div class="form-group">
+            <input
+              type="text"
+              name="username"
+              placeholder="Username"
+              id="usernameField"
+              class="form-control form-control-sm mb-3"
+              value="{{fieldValues.username}}"
+            />
+          </div>
+          <div class="invalid-feedback" style="display: none"></div>
+          <p class="text-sm text-success usernameSuccessOutput"></p>
+          <div class="form-group">
+            <input
+              type="email"
+              name="email"
+              placeholder="Email"
+              id="emailField"
+              class="form-control form-control-sm mb-3"
+              value="{{fieldValues.email}}"
+            />
+          </div>
+          <div
+            class="emailFeedbackArea invalid-feedback"
+            style="display: none"
+          ></div>
+          <p class="text-sm text-success emailSuccessOutput"></p>
+
+          <div class="form-group position-relative">
+            <input
+              type="password"
+              name="password"
+              placeholder="Password"
+              id="passwordField"
+              class="form-control form-control-sm mb-3"
+            />
+            <small
+              class="position-absolute"
+              style="
+                right: 10px;
+                top: 50%;
+                transform: translateY(-50%);
+                cursor: pointer;
+              "
+              id="togglePassword"
+              >SHOW</small
+            >
+          </div>
+          <div class="form-group text-center">
+            <input
+              type="submit"
+              value="Register"
+              class="btn btn-primary form-control submit-btn"
+              style="margin-top: 20px"
+            />
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script></script>
+<script src="{% static 'js/register.js' %}"></script>
+{% endblock content %}
