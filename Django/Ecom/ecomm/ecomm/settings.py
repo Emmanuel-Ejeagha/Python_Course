@@ -132,16 +132,16 @@ MEDIA_ROOT = BASE_DIR/'media'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-AUTHENTICATION_BACKENDS = [
-    'django.contrib.auth.backends.ModelBackend',
-    'allauth.account.auth_backends.AuthenticationBackend'
-]
+# AUTHENTICATION_BACKENDS = [
+#     'django.contrib.auth.backends.ModelBackend',
+#     'allauth.account.auth_backends.AuthenticationBackend'
+# ]
 
-SOCIALACCOUNT_PROVIDERS = {}
+# SOCIALACCOUNT_PROVIDERS = {}
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-ACCOUNT_AUTHENTiCATION_METHOD ='email'
-ACCOUNT_EMAIL_REQUIRED = True
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+# ACCOUNT_AUTHENTiCATION_METHOD ='email'
+# ACCOUNT_EMAIL_REQUIRED = True
 """
 Django settings for ecomm project.
 
@@ -176,6 +176,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    # 'allauth'
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -266,7 +267,7 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'ecomm/static')]
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR/'media'
-
+LOGIN_REDIRECT_URL = '/profile/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
