@@ -9,7 +9,11 @@ https://docs.djangoproject.com/en/5.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
+<<<<<<< HEAD
 import smtplib
+=======
+
+>>>>>>> bb5cc2b968df1dbfd6eccdb7cce0f1d61e721aa0
 import os
 from pathlib import Path
 from django.contrib import messages
