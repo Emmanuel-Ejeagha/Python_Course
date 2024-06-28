@@ -66,8 +66,8 @@
           <ul class="dropdown-menu" aria-labelledby="profileDropdown">
             <li><a class="dropdown-item" href="{% url 'profile' %}">Profile</a></li>
             <li><a class="dropdown-item" href="#">Orders</a></li>
-            <li><a class="dropdown-item" href="#">Change Password</a></li>
-            <li><a class="dropdown-item" href="#">Logout</a></li>
+            <li><a class="dropdown-item" href="{% url 'passwordchange' %}">Change Password</a></li>
+            <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
           </ul>
         </li>
         <li class="nav-item">
@@ -110,12 +110,12 @@
       integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
       crossorigin="anonymous"
     ></script>
-    <script src="{% static 'js/main.js' %}"></script>
-    <!-- <script src="{% static 'js/myscript.js' %}"></script> -->
-    <script src="{% static 'js/prime.js' %}"></script>
-    <script src="{% static 'js/zephyrCustom.js' %}"></script>
-    <!-- <script src="{% static 'js/all.min.js' %}"></script> -->
+    <!-- <script src="{% static 'js/main.js' %}"></script> -->
+    <script src="{% static 'js/myscript.js' %}"></script>
+    <!-- <script src="{% static 'js/prime.js' %}"></script> -->
+    <!-- <script src="{% static 'js/zephyrCustom.js' %}"></script> -->
+    <script src="{% static 'js/all.min.js' %}"></script>
     <!-- <script src="{% static 'js/bootstrap.min.js' %}"></script> -->
-    <!-- <script src="{% static 'js/owl.carousel.min.js' %}"></script> -->
+    <script src="{% static 'js/owl.carousel.min.js' %}"></script>
   </body>
 </html>
