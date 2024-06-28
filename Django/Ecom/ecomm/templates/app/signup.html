@@ -38,4 +38,14 @@
         </div>
     </div>
 </div>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const form = document.querySelector('form');
+        form.addEventListener('submit', function(event) {
+            console.log('Form is being submitted');
+            console.log('Form action:', form.action);
+            console.log('Form method:', form.method);
+        });
+    });
+</script>
 {% endblock main-content %}
