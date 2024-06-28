@@ -4,19 +4,19 @@
 {% block main-content %}
 <div class="container mt-5">
     <div class="row">
-    <h3>Welcome <span class="text-capitalize">{{request.user}}</span> </h3>
-    
-    <div class="col-sm-2 border-end">
-        <ul class="list-unstyled">
-            <li class="d-grid"><a href="{% url 'profile' %}" class="btn btn-primary">Profile</a></li>
-            <li class="d-grid"><a href="{% url 'address' %}" class="btn ">Address</a></li>
-        </ul>
-
-        <div class="col-sm-8 offset-sm-1"> 
+        <h3>Welcome <span class="text-capitalize">{{request.user}}</span> </h3>
+        
+        <div class="col-sm-2 border-end">
+            <ul class="list-unstyled">
+                <li class="d-grid"><a href="{% url 'profile' %}" class="btn btn-primary">Profile</a></li>
+                <li class="d-grid"><a href="{% url 'address' %}" class="btn ">Address</a></li>
+            </ul>
+        </div>
+        <div class="col-sm-9 offset-sm-1"> 
             <div class="row">
                 {% for ad in add %}
                 <div class="col-sm-6">
-                    <div class="card-m-2">
+                    <div class="card m-2">
                      <div class="card-body">
                       <h3>Address {{forloop.counter}}</h3>
                       <p>Name: {{ad.name}}</p>
@@ -25,7 +25,7 @@
                       <p>City: {{ad.mobile}}</p>
                       <p>State: {{ad.state}}</p>
                       <p>Zipcode: {{ad.zipcode}}</p>
-                      <!-- <p class="text-center"><a href="{% url 'updateAddress' pk=ad.id %}" class="btn btn-success" type="button">Update</a></p> -->
+                      <p class="text-center"><a href="{% url 'updateAddress' pk=ad.id %}" class="btn btn-success" type="button">Update</a></p>
                      </div>
                     </div>
                 </div>
@@ -34,5 +34,5 @@
         </div>
 
     </div>
-
+</div>
 {% endblock main-content %}
