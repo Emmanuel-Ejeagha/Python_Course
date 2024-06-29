@@ -4,6 +4,8 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.auth import views as auth_view
 from .forms import LoginForm, MyPasswordChangeForm, MyPasswordResetForm,MySetPasswordForm
+
+
 urlpatterns = [
     path("", views.home),
     path("about/", views.about, name="about"),
@@ -13,7 +15,7 @@ urlpatterns = [
     path("product-detail/<int:pk>", views.ProductDetail.as_view(), name="product-detail"),
     path('profile/', views.ProfileView.as_view(), name='profile'),
     path('address/', views.address, name='address'),
-    path("updateAddress/<int:pk>", views.ProductDetail.as_view(), name="updateAddress"),
+    path("updateAddress/<int:pk>", views.UpdateAddress.as_view(), name="updateAddress"),
     
     # login authentication
     path('signup/', views.CustomerRegistrationView.as_view(), name='signup'),
