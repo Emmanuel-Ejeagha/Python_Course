@@ -18,7 +18,8 @@ urlpatterns = [
     path("updateAddress/<int:pk>", views.UpdateAddress.as_view(), name="updateAddress"),
     path("add-to-cart", views.add_to_cart, name='add-to-cart'),
     path('cart', views.show_cart, name='showcart'),
-    
+    path('checkout/', views.show_cart, name='checkout'),
+    path('pluscart/', views.plus_cart),
     # login authentication
     path('signup/', views.CustomerRegistrationView.as_view(), name='signup'),
     path('accounts/login/', auth_view.LoginView.as_view(template_name='app/login.html', authentication_form=LoginForm), name='login'),
