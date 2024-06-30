@@ -13,11 +13,11 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/@docsearch/css@3"
     />
-     <link href="{% static 'css/zephyr.css' %}" rel="stylesheet" />
+    <link href="{% static 'css/zephyr.css' %}" rel="stylesheet" />
     <link href="{% static 'css/style.css' %}" rel="stylesheet" />
-    <!-- <link href="{% static 'css/all.min.css' %}" rel="stylesheet" /> -->
-    <!-- <link href="{% static 'css/owl.carousel.min.css' %}" rel="stylesheet" /> -->
-     <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" />
+    <!-- <link href="{% static 'css/all.min.css' %}" rel="stylesheet" />
+    <link href="{% static 'css/owl.carousel.min.css' %}" rel="stylesheet" /> -->
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" />
     <title>Dairy Products | {% block title %}{% endblock title %}</title>
   </head>
   <body>
@@ -87,6 +87,33 @@
         </li>
         <li class="nav-item">
           <a class="nav-link" href="{% url 'signup' %}">Signup</a>
+          <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/">Home</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="productsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Products
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="productsDropdown">
+            <li><a class="dropdown-item" href="{% url 'category' 'PH' %}">Phones</a></li>
+            <li><a class="dropdown-item" href="{% url 'category' 'AP' %}">Airpod</a></li>
+            <li><a class="dropdown-item" href="{% url 'category' 'HS' %}">Headset</a></li>
+            <li><a class="dropdown-item" href="{% url 'category' 'LT' %}">Laptop</a></li>
+            <li><a class="dropdown-item" href="{% url 'category' 'CG' %}">Charger</a></li>
+            <li><a class="dropdown-item" href="{% url 'category' 'PB' %}">Power Bank</a></li>
+          </ul>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'about' %}">About Us</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'contact' %}">Contact Us</a>
+        </li>
+            <form class="d-flex me-auto">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-light" type="submit">Search</button>
+      </form>
+      </ul>
           {% endif %}
         </li>
       </ul>
@@ -117,10 +144,14 @@
       integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
       crossorigin="anonymous"
     ></script>
-    <script src="{% static 'js/main.js' %}"></script>
-    <script src="{% static 'js/myscript.js' %}"></script>
-    <script src="{% static 'js/zephyrCustom.js' %}"></script>
-    <!-- <script src="{% static 'js/all.min.js' %}"></script> -->
-    <!-- <script src="{% static 'js/owl.carousel.min.js' %}"></script> -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script src="{% static 'js/style.js' %}"></script>
+    <!-- <script src="{% static 'js/myscript.js' %}"></script> -->
+    <!-- <script src="{% static 'js/prime.js' %}"></script> -->
+    <!-- <script src="{% static 'js/zephyrCustom.js' %}"></script> -->
+    <script src="{% static 'js/all.min.js' %}"></script>
+    <!-- <script src="{% static 'js/bootstrap.min.js' %}"></script> -->
+    <script src="{% static 'js/owl.carousel.min.js' %}"></script>
   </body>
 </html>
