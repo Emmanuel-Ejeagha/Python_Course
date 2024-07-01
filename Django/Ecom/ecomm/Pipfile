@@ -8,6 +8,7 @@ shell = "*"
 django = "*"
 pillow = "*"
 django-allauth = "*"
+razorpay = "*"
 
 [dev-packages]
 
