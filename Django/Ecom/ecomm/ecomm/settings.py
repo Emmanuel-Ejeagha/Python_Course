@@ -276,3 +276,7 @@ LOGIN_REDIRECT_URL = '/profile/'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Stripe settings 
+STRIPE_PUBLIC_KEY = os.environ.get('PUBLIC_KEY')
+STRIPE_SECRET_KEY = os.environ.get('SECRET_KEY')
