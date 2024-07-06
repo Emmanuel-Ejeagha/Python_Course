@@ -5,6 +5,11 @@ from .models import Customer, Product, Cart
 from django.db.models import Count, Q
 from .forms import CustomerRegistrationForm, CustomerProfileForm
 from django.contrib import messages
+from django.conf import settings
+import stripe
+
+# This is your test secret API key.
+stripe.api_key = 'sk_test_51PY72gRpD6bGdybGQPBcOLgrKYKXyr46eHE4ljOBgWw4UO3Atf6R5n0scs9qXyS4Pa3HUXgcaUs4HXjylmqI0oHy00ygM1FDxK'
 
 
 def home(request):
@@ -109,7 +114,7 @@ def show_cart(request):
     totalamount = amount + 1000
     return render(request, 'app/addtocart.html', locals())
 
-class checkout(View):
+class Checkout(View):
     def get(self, request):
         user = request.user
         add = Customer.objects.filter(user=user)
@@ -119,6 +124,31 @@ class checkout(View):
             value = p.quantity * p.product.discounted_price
             famount = famount + value
         totalamount = famount + 1000
+        stripeamount = int(totalamount * 100)
+
+        try:
+            checkout_session = stripe.checkout.Session.create(
+                payment_method_types=['card'],
+                line_items=[
+                    {
+                        'price_data': {
+                            'currency': 'usd',
+                            'product_data': {
+                                'name': 'Total Purchase',
+                            },
+                            'unit_amount': stripeamount,
+                        },
+                        'quantity': 1,
+                    },
+                ],
+                mode='payment',
+                success_url='http://localhost:8000/success/',
+                cancel_url='http://localhost:8000/cancel/',
+            )
+            return redirect(checkout_session.url, code=303)
+        except Exception as e:
+            return str(e)
+
         return render(request, 'app/checkout.html', locals())
 
 def plus_cart(request):
