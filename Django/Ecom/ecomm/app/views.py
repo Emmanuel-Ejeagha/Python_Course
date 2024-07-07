@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.views import View
 from django.http import JsonResponse
-from .models import Customer, Product, Cart
+from .models import Customer, Product, Cart, Payment
 from django.db.models import Count, Q
 from .forms import CustomerRegistrationForm, CustomerProfileForm
 from django.contrib import messages
@@ -118,38 +118,55 @@ class Checkout(View):
     def get(self, request):
         user = request.user
         add = Customer.objects.filter(user=user)
-        cart_items = Cart.objects.filter(user=user)
-        famount = 0
-        for p in cart_items:
-            value = p.quantity * p.product.discounted_price
-            famount = famount + value
-        totalamount = famount + 1000
-        stripeamount = int(totalamount * 100)
+        # cart_items = Cart.objects.filter(user=user)
+        # famount = 0
+        # for p in cart_items:
+        #     value = p.quantity * p.product.discounted_price
+        #     famount = famount + value
+        # totalamount = famount + 1000  # Adjust the additional charge as necessary
+        # stripeamount = int(totalamount * 100)  # Stripe amount in kobo
 
-        try:
-            checkout_session = stripe.checkout.Session.create(
-                payment_method_types=['card'],
-                line_items=[
-                    {
-                        'price_data': {
-                            'currency': 'usd',
-                            'product_data': {
-                                'name': 'Total Purchase',
-                            },
-                            'unit_amount': stripeamount,
-                        },
-                        'quantity': 1,
-                    },
-                ],
-                mode='payment',
-                success_url='http://localhost:8000/success/',
-                cancel_url='http://localhost:8000/cancel/',
-            )
-            return redirect(checkout_session.url, code=303)
-        except Exception as e:
-            return str(e)
+        # try:
+        #     checkout_session = stripe.checkout.Session.create(
+        #         payment_method_types=['card'],
+        #         line_items=[
+        #             {
+        #                 'price_data': {
+        #                     'currency': 'ngn',
+        #                     'product_data': {
+        #                         'name': 'Total Purchase',
+        #                     },
+        #                     'unit_amount': stripeamount,
+        #                 },
+        #                 'quantity': 1,
+        #             },
+        #         ],
+        #         mode='payment',
+        #         success_url='http://localhost:8000/success/',
+        #         cancel_url='http://localhost:8000/cancel/',
+        #     )
+        #     order_id = checkout_session['id']
+        #     order_status = checkout_session['status']
+        #     if order_status == 'created':
+        #         payment = Payment(
+        #             user=user,
+        #             amount=totalamount,
+        #             stripe_order_id=order_id,
+        #             stripe_payment_status = order_status
+        #         )
+        #         payment.save()
+        #     return redirect(checkout_session.url, code=303)
+        # except Exception as e:
+        #     return JsonResponse({'error': str(e)}, status=400)
 
         return render(request, 'app/checkout.html', locals())
+    
+def success(request):
+    return render(request, 'app/success.html')
+
+def cancel(request):
+    return render(request, 'app/cancel.html')
+
 
 def plus_cart(request):
     if request.method == 'GET':
@@ -196,8 +213,16 @@ def minus_cart(request):
 def remove_cart(request):
     if request.method == 'GET':
         prod_id = request.GET['prod_id']
-        c = Cart.objects.get(Q(product=prod_id) & Q(user=request.user))
-        c.delete()
+        if not prod_id:
+            return JsonResponse({'error': 'No product id provided'}, status=400)
+        
+        carts = Cart.objects.filter(Q(product=prod_id) & Q(user=request.user))
+        
+        if not carts.exists():
+            return JsonResponse({'error': 'Cart item not found'}, status=404)
+        
+        carts.delete()
+        
         user = request.user
         cart = Cart.objects.filter(user=user)
         amount = 0
@@ -205,7 +230,7 @@ def remove_cart(request):
             value = p.quantity
             amount += value
         totalamount = amount + 40
-        data={
+        data = {
             'amount':amount,
             'totalamount':totalamount
         }
