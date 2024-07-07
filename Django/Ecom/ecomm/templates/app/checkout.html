@@ -5,7 +5,7 @@
 <div class="container">
   {% if messages %}
   {% for msg in messages %}
-  <div class="alert alert-danger" role="alert">{{ msg }}</div>
+  <div class="alert alert-danger" role="alert">{{msg}}</div>
   {% endfor %}
   {% endif %}
   <div class="row mt-5">
@@ -21,19 +21,8 @@
         </div>
       </div>
       {% endfor %}
-      <p class="fw-bold">Total Cost: {{ totalamount }}</p>
-      <section>
-        <div class="product">
-          <img src="https://i.imgur.com/EHyR2nP.png" alt="The cover of Stubborn Attachments" />
-          <div class="description">
-            <h3>Stubborn Attachments</h3>
-            <h5>$20.00</h5>
-          </div>
-        </div>
-        <form action="/create-checkout-session" method="POST">
-          <button type="submit" id="checkout-button">Checkout</button>
-        </form>
-      </section>
+      <p class="fw-bold">Total Cost + #1000 = {{ totalamount }}</p>
+
       <small>
         Terms and Condition: Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum nisi blanditiis nostrum eos. Dicta voluptatibus dolor assumenda aliquid quo molestiae modi doloremque numquam corrupti praesentium delectus id voluptatem, dolorum inventore!
       </small>
@@ -41,19 +30,19 @@
     <div class="col-sm-4 offset-sm-1">
       <h4>Select Shipping Address</h4>
       <hr />
-      <form action="" method="post" id="myform">
+      <form  method="post" id="myform">
         {% csrf_token %}
         {% for ad in add %}
         <div class="card">
           <div class="card-body">
-            <h5>{{ ad.name }}</h5>
-            <p>Mobile : {{ ad.mobile }}</p>
-            <p>{{ ad.locality }} {{ ad.city }} {{ ad.state }} - {{ ad.zipcode }}</p>
+            <h5>{{ad.name}}</h5>
+            <p>Mobile : {{ad.mobile}}</p>
+            <p>{{ad.locality}} {{ad.city}} {{ad.state}} - {{ad.zipcode}}</p>
           </div>
         </div>
         <div class="form-check mt-2 mb-5">
           <input type="radio" name="custid" id="custadd{{ forloop.counter }}" value="{{ ad.id }}" class="form-check-input" />
-          <label for="custadd{{ forloop.counter }}" class="form-check-label">Address: {{ forloop.counter }}</label>
+          <label for="custadd{{forloop.counter}}" class="form-check-label">Address: {{forloop.counter}}</label>
         </div>
         {% endfor %}
         <div class="form-check mb-3">
@@ -68,3 +57,28 @@
   </div>
 </div>
 {% endblock main-content %}
+
+{% block payment-gateway %}
+<!-- <script src="https://js.stripe.com/v3/"></script>
+<script>
+  const stripe = Stripe('your-publishable-key-here');
+  
+  document.getElementById('checkout-button').addEventListener('click', function () {
+    fetch('/checkout/')
+      .then(function (response) {
+        return response.json();
+      })
+      .then(function (sessionId) {
+        return stripe.redirectToCheckout({ sessionId: sessionId.id });
+      })
+      .then(function (result) {
+        if (result.error) {
+          alert(result.error.message);
+        }
+      })
+      .catch(function (error) {
+        console.error('Error:', error);
+      });
+  }); -->
+</script>
+{% endblock payment-gateway %}
