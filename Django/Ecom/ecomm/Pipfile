@@ -10,6 +10,7 @@ pillow = "*"
 django-allauth = "*"
 razorpay = "*"
 stripe = "*"
+python-dotenv = "*"
 
 [dev-packages]
 
