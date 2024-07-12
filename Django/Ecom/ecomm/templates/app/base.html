@@ -2,6 +2,8 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <script src="https://js.stripe.com/v3/"></script>
+
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link
@@ -18,7 +20,7 @@
     <!-- <link href="{% static 'css/all.min.css' %}" rel="stylesheet" />
     <link href="{% static 'css/owl.carousel.min.css' %}" rel="stylesheet" /> -->
     <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" />
-    <title>Dairy Products | {% block title %}{% endblock title %}</title>
+    <title>Tech Products | {% block title %}{% endblock title %}</title>
         <script src="https://js.stripe.com/v3/"></script>
 
   </head>
@@ -68,7 +70,7 @@
           </a>
           <ul class="dropdown-menu" aria-labelledby="profileDropdown">
             <li><a class="dropdown-item" href="{% url 'profile' %}">Profile</a></li>
-            <li><a class="dropdown-item" href="#">Orders</a></li>
+            <li><a class="dropdown-item" href="{% url 'orders' %}">Orders</a></li>
             <li><a class="dropdown-item" href="{% url 'passwordchange' %}">Change Password</a></li>
           <li>
               <form method="post" action="{% url 'logout' %}">
@@ -78,7 +80,7 @@
           </li>          </ul>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Cart 4</a>
+          <a class="nav-link" href="{% url 'showcart' %}">Cart 4</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">Wishlist</a>
