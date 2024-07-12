@@ -4,9 +4,9 @@
 {% block main-content %}
 <div class="container">
   {% if messages %}
-  {% for msg in messages %}
-  <div class="alert alert-danger" role="alert">{{msg}}</div>
-  {% endfor %}
+    {% for msg in messages %}
+      <div class="alert alert-danger" role="alert">{{ msg }}</div>
+    {% endfor %}
   {% endif %}
   <div class="row mt-5">
     <div class="col-sm-6">
@@ -24,33 +24,56 @@
       <p class="fw-bold">Total Cost + #1000 = {{ totalamount }}</p>
 
       <small>
-        Terms and Condition: Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum nisi blanditiis nostrum eos. Dicta voluptatibus dolor assumenda aliquid quo molestiae modi doloremque numquam corrupti praesentium delectus id voluptatem, dolorum inventore!
+        Terms and Condition: Lorem ipsum dolor sit amet consectetur adipisicing
+        elit. Harum nisi blanditiis nostrum eos. Dicta voluptatibus dolor
+        assumenda aliquid quo molestiae modi doloremque numquam corrupti
+        praesentium delectus id voluptatem, dolorum inventore!
       </small>
     </div>
     <div class="col-sm-4 offset-sm-1">
       <h4>Select Shipping Address</h4>
       <hr />
-      <form  method="post" id="myform">
+      <form method="post" id="checkout-form">
         {% csrf_token %}
         {% for ad in add %}
         <div class="card">
           <div class="card-body">
-            <h5>{{ad.name}}</h5>
-            <p>Mobile : {{ad.mobile}}</p>
-            <p>{{ad.locality}} {{ad.city}} {{ad.state}} - {{ad.zipcode}}</p>
+            <h5>{{ ad.name }}</h5>
+            <p>Mobile : {{ ad.mobile }}</p>
+            <p>{{ ad.locality }} {{ ad.city }} {{ ad.state }} - {{ ad.zipcode }}</p>
           </div>
         </div>
         <div class="form-check mt-2 mb-5">
-          <input type="radio" name="custid" id="custadd{{ forloop.counter }}" value="{{ ad.id }}" class="form-check-input" />
-          <label for="custadd{{forloop.counter}}" class="form-check-label">Address: {{forloop.counter}}</label>
+          <input
+            type="radio"
+            name="custid"
+            id="custadd{{ forloop.counter }}"
+            value="{{ ad.id }}"
+            class="form-check-input"
+          />
+          <label for="custadd{{ forloop.counter }}" class="form-check-label">
+            Address: {{ forloop.counter }}
+          </label>
         </div>
         {% endfor %}
         <div class="form-check mb-3">
           <label for="totamount" class="form-label">Total Amount</label>
-          <input type="number" class="form-control" name="totamount" value="{{ totalamount }}" readonly />
+          <input
+            type="number"
+            class="form-control"
+            name="totamount"
+            value="{{ totalamount }}"
+            readonly
+          />
         </div>
         <div class="text-end">
-          <button id="rzp-button1" type="submit" class="btn btn-warning mt-3 px-5 fw-bold text-dark">Payment</button>
+          <button
+            id="checkout-button"
+            type="button"
+            class="btn btn-warning mt-3 px-5 fw-bold text-dark"
+          >
+            Payment
+          </button>
         </div>
       </form>
     </div>
@@ -59,26 +82,52 @@
 {% endblock main-content %}
 
 {% block payment-gateway %}
-<!-- <script src="https://js.stripe.com/v3/"></script>
 <script>
-  const stripe = Stripe('your-publishable-key-here');
-  
-  document.getElementById('checkout-button').addEventListener('click', function () {
-    fetch('/checkout/')
-      .then(function (response) {
-        return response.json();
-      })
-      .then(function (sessionId) {
-        return stripe.redirectToCheckout({ sessionId: sessionId.id });
-      })
-      .then(function (result) {
-        if (result.error) {
-          alert(result.error.message);
-        }
-      })
-      .catch(function (error) {
-        console.error('Error:', error);
-      });
-  }); -->
+  /*var options = {
+    "key": "pk_test_51PY72gRpD6bGdybGg9i6qbEQZux52Beg3Fap9DnV6Me4h9Zx2MqF0GFKKaDRWzKMgsnhFmh4dWvzcWt1k9BwZ1Rg00VxXbmj6T",
+    "amount": "{{stripeamount}}",
+    "currency": "INR",
+    "name": "Tech Products",
+    "description": "Purchase Product",
+    "order_id": "{{order_id}}",
+    "handler": function (response){
+      console.log("success")
+      var form = document.getElementById("myform");
+      window.location.href = "http://localhost:8000/success?order_id=${response.stripe_order_id}&payment_id=${response.stripe_payment_id}&cust_id=${form.elemennts["custid"].value}"
+    }
+  } */
+  const stripe = Stripe("pk_test_51PY72gRpD6bGdybGg9i6qbEQZux52Beg3Fap9DnV6Me4h9Zx2MqF0GFKKaDRWzKMgsnhFmh4dWvzcWt1k9BwZ1Rg00VxXbmj6T");
+
+  document.getElementById("checkout-button").addEventListener("click", function () {
+    console.log("Button clicked")
+    fetch("/checkout/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-CSRFToken": "{{ csrf_token }}",
+      },
+      body: JSON.stringify({
+        // Add any additional data if necessary
+      }),
+    })
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (sessionId) {
+      if (sessionId.error) {
+        console.error("Error:", sessionId.error);
+      } else {
+        stripe.redirectToCheckout({ sessionId: sessionId.id }).then(function (result) {
+          if (result.error) {
+            alert(result.error.message);
+          }
+        });
+      }
+    })
+    .catch(function (error) {
+      console.error("Error:", error);
+    });
+  });
 </script>
 {% endblock payment-gateway %}
+
