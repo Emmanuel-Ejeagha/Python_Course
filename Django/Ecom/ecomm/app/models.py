@@ -56,6 +56,14 @@ CATEGORY_CHOICES = (
     ('PB', 'Powerbank') 
 )
 
+STATUS_CHOICES = (
+    ('Accepted', 'Accepted'),
+    ('Packed', 'Packed'),
+    ('On The Way', 'On The Way'),
+    ('Deliverd', 'Delivered'),
+    ('Cancel', 'Cancel'),
+    ('Pending', 'Pending'),
+)
 
 class Product(models.Model):
     title = models.CharField(max_length=100)
@@ -90,14 +98,6 @@ class Cart(models.Model):
     def total_cost(self):
         return self.quantity * self.product.discounted_price
     
-STATUS_CHOICES = (
-    ('Accepted', 'Accepted'),
-    ('Packed', 'Packed'),
-    ('On The Way', 'On The Way'),
-    ('Deliverd', 'Delivered'),
-    ('Cancel', 'Cancel'),
-    ('Pending', 'Pending'),
-)
     
 class Payment(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
