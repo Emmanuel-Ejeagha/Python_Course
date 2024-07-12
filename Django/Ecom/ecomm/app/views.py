@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.views import View
 from django.http import JsonResponse
-from .models import Customer, Product, Cart, Payment
+from .models import Customer, Product, Cart, Payment, OrderPlaced
 from django.db.models import Count, Q
 from .forms import CustomerRegistrationForm, CustomerProfileForm
 from django.contrib import messages
@@ -9,8 +9,8 @@ from django.conf import settings
 import stripe
 
 # This is your test secret API key.
-stripe.api_key = 'sk_test_51PY72gRpD6bGdybGQPBcOLgrKYKXyr46eHE4ljOBgWw4UO3Atf6R5n0scs9qXyS4Pa3HUXgcaUs4HXjylmqI0oHy00ygM1FDxK'
-
+# stripe.api_key = 'sk_test_51PY72gRpD6bGdybGQPBcOLgrKYKXyr46eHE4ljOBgWw4UO3Atf6R5n0scs9qXyS4Pa3HUXgcaUs4HXjylmqI0oHy00ygM1FDxK'
+stripe.api_key = settings.STRIPE_SECRET_KEY
 
 def home(request):
     return render(request, 'app/home.html')
@@ -114,58 +114,93 @@ def show_cart(request):
     totalamount = amount + 1000
     return render(request, 'app/addtocart.html', locals())
 
+
+
 class Checkout(View):
+    def post(self, request):
+        user = request.user
+        cart_items = Cart.objects.filter(user=user)
+        famount = sum(p.quantity * p.product.discounted_price for p in cart_items)
+        totalamount = famount + 1000  # Adjust the additional charge as necessary
+        stripeamount = int(totalamount * 100)  # Stripe amount in kobo
+
+        try:
+            checkout_session = stripe.checkout.Session.create(
+                payment_method_types=['card'],
+                line_items=[{
+                    'price_data': {
+                        'currency': 'ngn',
+                        'product_data': {
+                            'name': 'Total Purchase',
+                        },
+                        'unit_amount': stripeamount,
+                    },
+                    'quantity': 1,
+                }],
+                mode='payment',
+                success_url='http://localhost:8000/success/?session_id={CHECKOUT_SESSION_ID}',
+                cancel_url='http://localhost:8000/cancel/',
+            )
+            payment = Payment(
+                user=user,
+                amount=totalamount,
+                stripe_order_id=checkout_session['id'],
+                stripe_payment_status=checkout_session['status']
+            )
+            payment.save()
+            return JsonResponse({'id': checkout_session.id})
+        except Exception as e:
+            return JsonResponse({'error': str(e)}, status=400)
+
     def get(self, request):
         user = request.user
         add = Customer.objects.filter(user=user)
-        # cart_items = Cart.objects.filter(user=user)
-        # famount = 0
-        # for p in cart_items:
-        #     value = p.quantity * p.product.discounted_price
-        #     famount = famount + value
-        # totalamount = famount + 1000  # Adjust the additional charge as necessary
-        # stripeamount = int(totalamount * 100)  # Stripe amount in kobo
+        cart_items = Cart.objects.filter(user=user)
+        famount = sum(p.quantity * p.product.discounted_price for p in cart_items)
+        totalamount = famount + 1000  # Adjust the additional charge as necessary
 
-        # try:
-        #     checkout_session = stripe.checkout.Session.create(
-        #         payment_method_types=['card'],
-        #         line_items=[
-        #             {
-        #                 'price_data': {
-        #                     'currency': 'ngn',
-        #                     'product_data': {
-        #                         'name': 'Total Purchase',
-        #                     },
-        #                     'unit_amount': stripeamount,
-        #                 },
-        #                 'quantity': 1,
-        #             },
-        #         ],
-        #         mode='payment',
-        #         success_url='http://localhost:8000/success/',
-        #         cancel_url='http://localhost:8000/cancel/',
-        #     )
-        #     order_id = checkout_session['id']
-        #     order_status = checkout_session['status']
-        #     if order_status == 'created':
-        #         payment = Payment(
-        #             user=user,
-        #             amount=totalamount,
-        #             stripe_order_id=order_id,
-        #             stripe_payment_status = order_status
-        #         )
-        #         payment.save()
-        #     return redirect(checkout_session.url, code=303)
-        # except Exception as e:
-        #     return JsonResponse({'error': str(e)}, status=400)
-
-        return render(request, 'app/checkout.html', locals())
+        context = {
+            'add': add,
+            'cart_items': cart_items,
+            'totalamount': totalamount,
+        }
+        return render(request, 'app/checkout.html', context)
     
-def success(request):
-    return render(request, 'app/success.html')
+def payment_done(request):
+    session_id = request.GET.get('session_id')
+    user = request.user
+    
+    try:
+        checkout_session = stripe.checkout.Session.retrieve(session_id)
+        payment_intent = checkout_session['payment_intent']
+        payment = Payment.objects.get(stripe_order_id=session_id)
+        payment.stripe_payment_id = payment_intent
+        payment.paid = True
+        payment.save()
+        
+        # To save order details
+        cart_items = Cart.objects.filter(user=user)
+        for item in cart_items:
+            OrderPlaced(
+                user=user,
+                customer=payment.user.customer,
+                product=item.product,
+                quantity=item.quantity,
+                payment=payment
+            ).save()
+            item.delete()
+            
+        return render(request, 'app/orders.html', {'payment': payment})
+    except Exception as e:
+        return JsonResponse({'error': str(e)}, status=400)
+
 
 def cancel(request):
     return render(request, 'app/cancel.html')
+
+def orders(request):
+    order_placed = OrderPlaced.objects.filter(user=request.user)
+    return render(request, 'app/orders.html', locals())
 
 
 def plus_cart(request):
