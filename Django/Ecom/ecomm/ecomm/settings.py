@@ -278,5 +278,13 @@ LOGIN_REDIRECT_URL = '/profile/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Stripe settings 
+from dotenv import load_dotenv
+
+load_dotenv() 
+
 STRIPE_PUBLIC_KEY = os.environ.get('PUBLIC_KEY')
 STRIPE_SECRET_KEY = os.environ.get('SECRET_KEY')
+
+# debug prints
+# print(f"Stripe Public Key: {STRIPE_PUBLIC_KEY}")
+# print(f"Stripe Secret Key: {STRIPE_SECRET_KEY}")
