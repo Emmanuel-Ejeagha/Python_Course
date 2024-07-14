@@ -4,7 +4,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.auth import views as auth_view
 from .forms import LoginForm, MyPasswordChangeForm, MyPasswordResetForm,MySetPasswordForm
-
+from django.contrib import admin
 
 urlpatterns = [
     path("", views.home),
@@ -27,6 +27,7 @@ urlpatterns = [
     path('success/', views.payment_done, name='success'),
     path('orders/', views.orders, name='orders'),
     path('cancel/', views.cancel, name='cancel'),
+    path('search/', views.search, name='search' ),
     # login authentication
     path('signup/', views.CustomerRegistrationView.as_view(), name='signup'),
     path('accounts/login/', auth_view.LoginView.as_view(template_name='app/login.html', authentication_form=LoginForm), name='login'),
@@ -40,3 +41,7 @@ urlpatterns = [
 
 
 ]+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+admin.site.site_header = "Tech Hub"
+admin.site.site_title = "Tech Hub"
+admin.site.site_index_title = "Welcome to Tech Hub Shop"
